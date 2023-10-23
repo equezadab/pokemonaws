@@ -26,14 +26,14 @@ def lambda_handler(event, context):
         region = body['region']
 
         cursor = conn.cursor()
-        insert = sql.SQL("INSERT INTO pokemon values (nombre)returning id;")
+        insert = sql.SQL("INSERT INTO POKEMON values ('nombre')returning id;")
         cursor.execute(insert)
         id.pokemon= cursor.fetchone()[0]
         conn.commit()
-        insert = sql.SQL("INSERT INTO tipo (tipo) values ('tipo')returning id")
+        insert = sql.SQL("INSERT INTO TIPO (tipo) values ('tipo')returning id")
         cursor.execute(insert)
         conn.commit()
-        insert = sql.SQL("INSERT INTO region (region) values ('region')returning id")
+        insert = sql.SQL("INSERT INTO REGION (region) values ('region')returning id")
         cursor.execute(insert)
         conn.commit()
 
