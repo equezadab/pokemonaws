@@ -4,7 +4,7 @@ from psycopg2 import sql
 import os
 
 
-def lambda_handler(event,context):
+def lambda_handler(event, context):
     db_host = os.environ['DB_HOST']
     db_port = os.environ['DB_PORT']
     db_name = os.environ['DB_NAME']
