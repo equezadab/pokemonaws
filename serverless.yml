@@ -13,9 +13,9 @@ provider:
       - subnet-01696dc1b34080eb0
       - subnet-0b5219203d6bf9e7f
       - subnet-09aa2f8e0d58c1c1d
-funtions:
-  my-lamdba-funtion:
-    handler: lambda_funtions.lambda_handler
+functions:
+  my-lamdba-function:
+    handler: lambda_functions.lambda_handler
     environment:
       DB_HOST: database-1.cvv0sjjioe98.us-east-1.rds.amazonaws.com
       DB_PORT: 5432
