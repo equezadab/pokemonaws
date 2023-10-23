@@ -1,7 +1,7 @@
 service: POKEMONAPI-POST
 provider: 
   name: aws
-  runtime: pytohn3.9
+  runtime: python3.9
   region: us-east-1
   vpc: 
     securityGroupIds:

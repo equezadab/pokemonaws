@@ -26,7 +26,7 @@ def lambda_handler(event,context):
         region = body['region']
 
         cursor = conn.cursor()
-        sql = sql.SQL("INSERT INTO values POKEMONS (nombre)returnig id;")
+        insert = sql.SQL("INSERT INTO values POKEMON (nombre)returnig id;")
         cursor.execute(insert)
         id.pokemon= cursor.fetchone()[0]
         conn.commit()
