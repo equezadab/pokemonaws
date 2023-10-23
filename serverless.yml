@@ -1,0 +1,28 @@
+service: POKEMONAPI-POST
+provider: 
+  name: aws
+  runtime: pytohn3.9
+  region: us-east-1
+  vpc: 
+    securityGroupIds:
+      - sg-0494beb6de51b48df
+    subnetIds:
+      - subnet-08001d650c9a2f59c
+      - subnet-0a8ea1815a19b8a93
+      - subnet-041b6ed11ddeda4f7
+      - subnet-01696dc1b34080eb0
+      - subnet-0b5219203d6bf9e7f
+      - subnet-09aa2f8e0d58c1c1d
+funtions:
+  my-lamdba-funtion:
+    handler:lambda_funtions.lambda_handler
+    environment:
+    DB_HOST: database-1.cvv0sjjioe98.us-east-1.rds.amazonaws.com
+    DB_PORT: 5432
+    BD_NAME: pokemondb
+    DB_USER: postgres
+    DB_PASSWORD: este1997
+  events:
+    - http:
+        path: /post
+        method: POST

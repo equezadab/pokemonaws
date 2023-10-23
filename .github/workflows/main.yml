@@ -1,0 +1,27 @@
+name: Deploy Lambda
+on:
+  push:
+    branches:
+      - main
+jobs: 
+  deploy:
+    runs-on:ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/seput-python@v2
+      with: 
+        python-version: 3.9
+      - name: Install dependencies
+        run: |
+          pip install pyscopg2-binary -t .
+      - name: Install Serverless Framework
+        run: |
+          nmp install -g serverless serverless-domain-manager --save-dev
+      - name: Deploy Lambda 
+        run: |
+          serverless deploy 
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
