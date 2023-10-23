@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/seput-python@v2
+        uses: actions/setup-python@v2
       with: 
         python-version: 3.9
       - name: Install dependencies
@@ -18,7 +18,7 @@ jobs:
           pip install pyscopg2-binary -t .
       - name: Install Serverless Framework
         run: |
-          nmp install -g serverless serverless-domain-manager --save-dev
+          npm install -g serverless serverless-domain-manager --save-dev
       - name: Deploy Lambda 
         run: |
           serverless deploy 
