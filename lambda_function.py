@@ -22,18 +22,18 @@ def lambda_handler(event, context):
         )
         body=json.loads(event['body'])
         nombre = body['nombre']
-        tipo = body['tipo']
-        region = body['region']
+        tipo = str(body['tipo'])
+        region = str(body['region'])
 
         cursor = conn.cursor()
         insert = sql.SQL("INSERT INTO POKEMON (nombre) values ('"+nombre+"')returning id;")
         cursor.execute(insert)
         id_pokemon= cursor.fetchone()[0]
         conn.commit()
-        insert = sql.SQL("INSERT INTO TIPO (tipo,pokemon_id) values ('"+tipo+"','"+str(id_pokemon)+"')returning id")
+        insert = sql.SQL("INSERT INTO TIPO (tipo,pokemon_id) values ('"+tipo+"','"+id_pokemon+"')returning id")
         cursor.execute(insert)
         conn.commit()
-        insert = sql.SQL("INSERT INTO REGION (region,pokemon_id) values ('"+region+"','"+str(id_pokemon)+"')returning id")
+        insert = sql.SQL("INSERT INTO REGION (region,pokemon_id) values ('"+region+"','"+id_pokemon+"')returning id")
         cursor.execute(insert)
         conn.commit()
 
