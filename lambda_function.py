@@ -19,17 +19,17 @@ def lambda_handler(event, context):
         tipo = body['tipo_pokemon']
         region = body['region_pokemon']
 
-        insert = sql.SQL("INSERT INTO pokemon (nombre_pokemon) VALUES ({}) returning id").format(sql.Literal(nombre))
+        insert = sql.SQL("INSERT INTO pokemon (nombre) VALUES ({}) returning id").format(sql.Literal(nombre))
         cursor.execute(insert)
         id_pokemon = cursor.fetchone()[0]
         conn.commit()  # Agregué los paréntesis aquí
 
-        insert = sql.SQL("INSERT INTO region (nombre_region) VALUES ({}) returning id").format(sql.Literal(region))
+        insert = sql.SQL("INSERT INTO region (region) VALUES ({}) returning id").format(sql.Literal(region))
         cursor.execute(insert)
         conn.commit()  # Agregué los paréntesis aquí
         id_region = cursor.fetchone()[0]
 
-        insert = sql.SQL("INSERT INTO tipo (nombre_tipo) VALUES ({}) returning id").format(sql.Literal(tipo))
+        insert = sql.SQL("INSERT INTO tipo (tipo) VALUES ({}) returning id").format(sql.Literal(tipo))
         cursor.execute(insert)
         conn.commit()  # Agregué los paréntesis aquí
         id_tipo = cursor.fetchone()[0]
