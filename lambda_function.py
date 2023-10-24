@@ -45,7 +45,7 @@ def lambda_handler(event, context):
             "body":"Pokemon insertado correctamente" 
         }
 
-    except Exception as e:
+    except psycopg2.DatabaseError as e:
         response = {
         "statusCode": 500,
             "body":str(e)
