@@ -4,7 +4,7 @@ from psycopg2 import sql
 import os
 
 
-def lambda_handler(event, context):
+def lambda_handler(event):
     db_host = os.environ['DB_HOST']
     db_port = os.environ['DB_PORT']
     db_name = os.environ['DB_NAME']
@@ -22,18 +22,18 @@ def lambda_handler(event, context):
         )
         body=json.loads(event['body'])
         nombre = body['nombre']
-        tipo = str(body['tipo'])
-        region = str(body['region'])
+        tipo = body['tipo']
+        region = body['region']
 
         cursor = conn.cursor()
-        insert = sql.SQL("INSERT INTO POKEMON (nombre) values ('"+nombre+"')returning id;")
+        insert = sql.SQL("INSERT INTO POKEMON (nombre) values ({})returning id;").format(sql.Literal(nombre))
         cursor.execute(insert)
         id_pokemon= cursor.fetchone()[0]
         conn.commit()
-        insert = sql.SQL("INSERT INTO TIPO (tipo,pokemon_id) values ('"+tipo+"','"+id_pokemon+"')returning id;")
+        insert = sql.SQL("INSERT INTO TIPO (tipo,id_pokemon) values ({},{})returning id;").format(sql.Literal(tipo,id_pokemon),sql.Literal(id_pokemon))
         cursor.execute(insert)
         conn.commit()
-        insert = sql.SQL("INSERT INTO REGION (region,pokemon_id) values ('"+region+"','"+id_pokemon+"')returning id;")
+        insert = sql.SQL("INSERT INTO REGION (region,id_pokemon) values ({},{})returning id;").format(sql.Literal(region),sql.Literal(id_pokemon))
         cursor.execute(insert)
         conn.commit()
 
@@ -53,3 +53,10 @@ def lambda_handler(event, context):
     
     return response
     
+postmanPokemon = {
+    "nombre":"Bulbasur",
+    "tipo": "1",
+    "region": "1"
+}
+print(lambda_handler(postmanPokemon))
+
